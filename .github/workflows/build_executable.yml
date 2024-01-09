@@ -25,7 +25,7 @@ jobs:
     
     - name: Remove dist folder
       run: |
-        rm -rf dist
+        if exist dist rd /s /q dist
 
     - name: Upload Executable
       uses: actions/upload-artifact@v2
