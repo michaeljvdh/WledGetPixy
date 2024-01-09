@@ -21,14 +21,16 @@ jobs:
       run: pip install pyinstaller
 
     - name: Build Executable
-      run: pyinstaller monitor.spec
+      run: |
+        pyinstaller monitor.spec
+        copy dist/wledgetpixy.exe wledgetpixy.exe
     
     - name: Upload Executable
       uses: actions/upload-artifact@v2
       with:
         name: wledgetpixy
         path: |
-          dist/wledgetpixy.exe
+          wledgetpixy.exe
           monitor/
           monitor.cfg
           convert.cfg
