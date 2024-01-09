@@ -17,11 +17,9 @@ jobs:
       with:
         python-version: '3.x'  # Specify the Python version you need
 
-    - name: Install Dependancies
-      run: pip install -r requirements.txt
-
     - name: Build Executable
       run: |
+        pip install -r requirements.txt
         pyinstaller monitor.spec
         copy dist/GetPixy.exe GetPixy.exe
     
