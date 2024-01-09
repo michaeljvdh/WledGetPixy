@@ -29,7 +29,7 @@ jobs:
     - name: Upload Executable
       uses: actions/upload-artifact@v2
       with:
-        name: GetPixy
+        name: GetPixy.zip - Windows Executable
         path: |
           GetPixy.exe
           monitor/
