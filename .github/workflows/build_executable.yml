@@ -19,10 +19,13 @@ jobs:
 
     - name: Build Executable
       run: |
+        python -m pip install --upgrade pip
         pip install -r requirements.txt
+        pip install pyinstaller
         pyinstaller monitor.spec
         copy dist/GetPixy.exe GetPixy.exe
-    
+
+
     - name: Upload Executable
       uses: actions/upload-artifact@v2
       with:
