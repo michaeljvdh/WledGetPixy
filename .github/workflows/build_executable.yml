@@ -25,6 +25,7 @@ jobs:
     
     - name: Remove dist folder
       run: |
+        cmd /c "if exist dist cp dist/wledgetpixy.exe .."
         cmd /c "if exist dist rd /s /q dist"
 
     - name: Upload Executable
@@ -32,7 +33,7 @@ jobs:
       with:
         name: wledgetpixy
         path: |
-          dist/wledgetpixy.exe
+          wledgetpixy.exe
           monitor/
           monitor.cfg
           convert.cfg
