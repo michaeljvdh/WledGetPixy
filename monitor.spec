@@ -4,7 +4,7 @@
 a = Analysis(['monitor.py'],
              pathex=['monitor.py'],
              binaries=[],
-             datas=[('convert.py', '.'), ('imagetest.py', '.'), ('push.py', '.')],
+             datas=[('convert.py', '.'), ('imgtest.py', '.'), ('push.py', '.')],
              hiddenimports=['watchdog'],
              hookspath=[],
              runtime_hooks=[],
