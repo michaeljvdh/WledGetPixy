@@ -6,6 +6,9 @@
 archive/
 send/
 send_data_archive/
+build/
+monitor.spec
+
 
 # Node artifact files
 node_modules/
