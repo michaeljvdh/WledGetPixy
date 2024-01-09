@@ -35,4 +35,9 @@ jobs:
           monitor/
           monitor.cfg
           convert.cfg
+          push.py
+          convert.py
+          imgtest.py
+
+          
 
