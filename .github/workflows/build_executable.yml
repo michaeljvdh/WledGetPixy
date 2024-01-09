@@ -22,6 +22,10 @@ jobs:
 
     - name: Build Executable
       run: pyinstaller monitor.spec
+    
+    - name: Remove dist folder
+      run: |
+        rm -rf dist
 
     - name: Upload Executable
       uses: actions/upload-artifact@v2
@@ -32,4 +36,4 @@ jobs:
           monitor/
           monitor.cfg
           convert.cfg
-          
+
