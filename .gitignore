@@ -3,6 +3,10 @@
 # Learn more about .gitignore:
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
+archive/
+send/
+send_data_archive/
+
 # Node artifact files
 node_modules/
 dist/
