@@ -23,17 +23,12 @@ jobs:
     - name: Build Executable
       run: pyinstaller monitor.spec
     
-    - name: Remove dist folder
-      run: |
-        cmd /c "if exist dist cp dist/wledgetpixy.exe .."
-        cmd /c "if exist dist rd /s /q dist"
-
     - name: Upload Executable
       uses: actions/upload-artifact@v2
       with:
         name: wledgetpixy
         path: |
-          wledgetpixy.exe
+          dist/wledgetpixy.exe
           monitor/
           monitor.cfg
           convert.cfg
