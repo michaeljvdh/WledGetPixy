@@ -17,20 +17,20 @@ jobs:
       with:
         python-version: '3.x'  # Specify the Python version you need
 
-    - name: Install PyInstaller
-      run: pip install pyinstaller
+    - name: Install Dependancies
+      run: pip install -r requirements.txt
 
     - name: Build Executable
       run: |
         pyinstaller monitor.spec
-        copy dist/wledgetpixy.exe wledgetpixy.exe
+        copy dist/GetPixy.exe GetPixy.exe
     
     - name: Upload Executable
       uses: actions/upload-artifact@v2
       with:
-        name: wledgetpixy
+        name: GetPixy
         path: |
-          wledgetpixy.exe
+          GetPixy.exe
           monitor/
           monitor.cfg
           convert.cfg
