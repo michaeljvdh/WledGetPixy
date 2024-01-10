@@ -1,0 +1,89 @@
+name: Build Executable
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+      actions: write
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'  # Specify the Python version you need
+
+    - name: Get short SHA
+      run: echo "SHORT_SHA=$("${{ github.sha }}".SubString(0, 8))" >> $env:GITHUB_ENV
+      
+    - name: Print short SHA
+      run: echo "Short SHA is ${{ env.SHORT_SHA }}"
+
+    - name: Build Executable
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pyinstaller
+        pyinstaller monitor.spec
+        copy dist/GetPixy.exe GetPixy.exe
+
+    - name: Create Python Zip File
+      run: Compress-Archive -Path monitor/, monitor.cfg, convert.cfg, monitor.py, push.py, convert.py, imgtest.py, requirements.txt, LICENSE -DestinationPath GetPixy-Python-${{ env.SHORT_SHA }}.zip
+
+    - name: Create Windows Zip File
+      run: Compress-Archive -Path GetPixy.exe, monitor/, monitor.cfg, convert.cfg, push.py, convert.py, imgtest.py, LICENSE  -DestinationPath GetPixy-Windows-${{ env.SHORT_SHA }}.zip
+
+    - name: Upload Windows Zip
+      uses: actions/upload-artifact@v2
+      with:
+        name: GetPixy Python
+        path: GetPixy-Python-${{ env.SHORT_SHA }}.zip
+
+    - name: Upload Python Zip
+      uses: actions/upload-artifact@v2
+      with:
+        name: GetPixy Windows Executable
+        path: GetPixy-Windows-${{ env.SHORT_SHA }}.zip
+              
+    - name: Directory Listing
+      run: |
+        tree /F
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: alpha-${{ env.SHORT_SHA }}
+        release_name: Alpha Release - ${{ env.SHORT_SHA }}
+        draft: false
+        prerelease: true
+        overwrite: true
+
+    - name: Upload GetPixy-Windows.zip
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./GetPixy-Windows-${{ env.SHORT_SHA }}.zip
+        asset_name: GetPixy-Windows-${{ env.SHORT_SHA }}.zip
+        asset_content_type: application/zip
+
+    - name: Upload GetPixy-Python.zip
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./GetPixy-Python-${{ env.SHORT_SHA }}.zip
+        asset_name: GetPixy-Python-${{ env.SHORT_SHA }}.zip
+        asset_content_type: application/zip          
