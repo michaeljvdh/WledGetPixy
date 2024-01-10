@@ -62,8 +62,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: alpha
-        release_name: Alpha Release
+        tag_name: alpha-${{ env.SHORT_SHA }}
+        release_name: Alpha Release - ${{ env.SHORT_SHA }}
         draft: false
         prerelease: true
         overwrite: true
