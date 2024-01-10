@@ -38,12 +38,19 @@ jobs:
           push.py
           convert.py
           imgtest.py
-
-    - name: Zip Repository
-      run: Compress-Archive -Path * -DestinationPath GetPixy-Python.zip -Force
+          LICENSE
 
     - name: Upload ZIP
       uses: actions/upload-artifact@v2
       with:
         name: GetPixy-Python.zip - Python
-        path: GetPixy-Python.zip    
+        path: |
+          monitor/
+          monitor.cfg
+          convert.cfg
+          monitor.py
+          push.py
+          convert.py
+          imgtest.py
+          requirements.txt
+          LICENSE
