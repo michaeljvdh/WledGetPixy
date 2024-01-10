@@ -39,5 +39,11 @@ jobs:
           convert.py
           imgtest.py
 
-          
+    - name: Zip Repository
+      run: Compress-Archive -Path * -DestinationPath GetPixy-Python.zip -Force
 
+    - name: Upload ZIP
+      uses: actions/upload-artifact@v2
+      with:
+        name: GetPixy-Python.zip - Python
+        path: GetPixy-Python.zip    
