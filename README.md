@@ -46,6 +46,11 @@
 
     - If you have any questions, send them to me at wledgetpixy@outlook.com
 
+  #### Getting Started
+  1. (Optional) dump into your python virtual environment
+  2. Install requirements
+    `pip install -r requirements.txt`
+  3. Your setup. 
 
   #### Running `monitor.py`
   1. Executes required folder generation based on `monitor.cfg`.
@@ -80,7 +85,7 @@
   - `send_location`: Location where `.send` files are created.
   - `send_data_archive_location`: Temporary storage for send frames data (gets wiped out on each run).
 
-  ### `converts.cfg`
+  ### `convert.cfg`
   - `ipaddress`: IP address of WLED device.
   - `brightness`: Brightness setting for LED display. (Don't set too low or some colours will not appear)
   - `resolution`: Resolution of LED matrix. Format (16x16 or 32x32 and so on)
