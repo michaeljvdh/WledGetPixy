@@ -58,7 +58,8 @@ jobs:
           
     - name: Directory Listing
       run: |
-        dir *.* /s
+        tree
+        dir /s
 
 
     - name: Create Release
