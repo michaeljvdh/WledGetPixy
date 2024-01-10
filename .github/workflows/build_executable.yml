@@ -56,7 +56,7 @@ jobs:
       run: |
         tree /F
 
-    - name: Create Release
+    - name: Create Release - main branch only
       if: github.ref == 'refs/heads/main'
       id: create_release
       uses: actions/create-release@v1
@@ -69,7 +69,7 @@ jobs:
         prerelease: true
         overwrite: true
 
-    - name: Upload GetPixy-Windows.zip
+    - name: Upload GetPixy-Windows.zip - main branch only
       if: github.ref == 'refs/heads/main'
       uses: actions/upload-release-asset@v1
       env:
@@ -80,7 +80,7 @@ jobs:
         asset_name: GetPixy-Windows-${{ env.SHORT_SHA }}.zip
         asset_content_type: application/zip
 
-    - name: Upload GetPixy-Python.zip
+    - name: Upload GetPixy-Python.zip - main branch only
       if: github.ref == 'refs/heads/main'
       uses: actions/upload-release-asset@v1
       env:

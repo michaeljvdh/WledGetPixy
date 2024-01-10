@@ -36,11 +36,12 @@ class Handler(FileSystemEventHandler):
         self.config = config
 
     def on_any_event(self, event):
+
         if event.is_directory or 'archive' in event.src_path or 'send' in event.src_path:
             return None
 
-        if event.event_type == 'created':
-            print(f"New file detected: {event.src_path}")
+        if event.event_type == 'created' or event.event_type == 'modified':
+            print(f"New file detected in python: {event.src_path}")
             send_location = self.config.get('Settings', 'send_location')
 
             # Process the new file with convert.py
@@ -98,6 +99,8 @@ if __name__ == '__main__':
     archive_location = config.get('Settings', 'archive_location')
     send_location = config.get('Settings', 'send_location')
     send_data_archive_location = config.get('Settings', 'send_data_archive_location')
+    directory_to_watch = os.path.abspath(directory_to_watch)
+    print(F"Attemping to watch folder: {directory_to_watch}")
 
     # Ensure directories exist
     ensure_directory_exists(directory_to_watch)
