@@ -25,37 +25,24 @@ jobs:
         pyinstaller monitor.spec
         copy dist/GetPixy.exe GetPixy.exe
 
+    - name: Create Python Zip File
+      run: Compress-Archive -Path monitor/, monitor.cfg, convert.cfg, monitor.py, push.py, convert.py, imgtest.py, requirements.txt, LICENSE -DestinationPath GetPixy-Python.zip
 
-    - name: Upload Windows Executable ZIP
+    - name: Create Windows Zip File
+      run: Compress-Archive -Path GetPixy.exe monitor/ monitor.cfg convert.cfg push.py convert.py imgtest.py LICENSE  -DestinationPath GetPixy-Windows.zip
+
+    - name: Upload Windows Zip
       uses: actions/upload-artifact@v2
       with:
-        name: GetPixy-Windows.zip
-        path: |
-          GetPixy.exe
-          monitor/
-          monitor.cfg
-          convert.cfg
-          push.py
-          convert.py
-          imgtest.py
-          LICENSE
+        name: GetPixy-Python
+        path: GetPixy-Python.zip
 
     - name: Upload Python Zip
       uses: actions/upload-artifact@v2
       with:
-        name: GetPixy-Python.zip
-        path: |
-          monitor/
-          monitor.cfg
-          convert.cfg
-          monitor.py
-          push.py
-          convert.py
-          imgtest.py
-          requirements.txt
-          LICENSE
-
-          
+        name: GetPixy-Windows
+        path: GetPixy-Windows.zip
+              
     - name: Directory Listing
       run: |
         tree /F
