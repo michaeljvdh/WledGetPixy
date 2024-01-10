@@ -29,7 +29,7 @@ jobs:
     - name: Upload Executable
       uses: actions/upload-artifact@v2
       with:
-        name: GetPixy.zip - Windows Executable
+        name: GetPixy-Windows.zip
         path: |
           GetPixy.exe
           monitor/
@@ -43,7 +43,7 @@ jobs:
     - name: Upload ZIP
       uses: actions/upload-artifact@v2
       with:
-        name: GetPixy-Python.zip - Python
+        name: GetPixy-Python.zip
         path: |
           monitor/
           monitor.cfg
@@ -54,3 +54,35 @@ jobs:
           imgtest.py
           requirements.txt
           LICENSE
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: alpha
+        release_name: Alpha Release
+        draft: false
+        prerelease: true
+        overwrite: true
+
+    - name: Upload GetPixy-Windows.zip
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: GetPixy-Windows.zip
+        asset_name: GetPixy-Windows.zip
+        asset_content_type: application/zip
+
+    - name: Upload GetPixy-Python.zip
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./GetPixy-Python.zip
+        asset_name: GetPixy-Python.zip
+        asset_content_type: application/zip          
