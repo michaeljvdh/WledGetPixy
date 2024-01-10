@@ -26,7 +26,7 @@ jobs:
         copy dist/GetPixy.exe GetPixy.exe
 
 
-    - name: Upload Executable
+    - name: Upload Windows Executable ZIP
       uses: actions/upload-artifact@v2
       with:
         name: GetPixy-Windows.zip
@@ -40,7 +40,7 @@ jobs:
           imgtest.py
           LICENSE
 
-    - name: Upload ZIP
+    - name: Upload Python Zip
       uses: actions/upload-artifact@v2
       with:
         name: GetPixy-Python.zip
@@ -54,6 +54,12 @@ jobs:
           imgtest.py
           requirements.txt
           LICENSE
+
+          
+    - name: Directory Listing
+      run: |
+        dir *.* /s
+
 
     - name: Create Release
       id: create_release
@@ -73,7 +79,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: GetPixy-Windows.zip
+        asset_path: ./GetPixy-Windows.zip
         asset_name: GetPixy-Windows.zip
         asset_content_type: application/zip
 
