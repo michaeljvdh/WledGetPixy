@@ -21,8 +21,8 @@ jobs:
         python-version: '3.x'  # Specify the Python version you need
 
     - name: Set Short SHA
-      run: echo "SHORT_SHA=${{ github.sha }}".substring(0,9) | Out-File -FilePath $Env:GITHUB_ENV -Append
-      shell: pwsh
+      run: echo "SHORT_SHA=${{ github.sha | cut -c1-9 }}" >> $GITHUB_ENV
+      shell: bash
       
     - name: Build Executable
       run: |
