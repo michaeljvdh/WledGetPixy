@@ -29,7 +29,7 @@ jobs:
       run: Compress-Archive -Path monitor/, monitor.cfg, convert.cfg, monitor.py, push.py, convert.py, imgtest.py, requirements.txt, LICENSE -DestinationPath GetPixy-Python.zip
 
     - name: Create Windows Zip File
-      run: Compress-Archive -Path GetPixy.exe monitor/ monitor.cfg convert.cfg push.py convert.py imgtest.py LICENSE  -DestinationPath GetPixy-Windows.zip
+      run: Compress-Archive -Path GetPixy.exe monitor/, monitor.cfg, convert.cfg, push.py, convert.py, imgtest.py, LICENSE  -DestinationPath GetPixy-Windows.zip
 
     - name: Upload Windows Zip
       uses: actions/upload-artifact@v2
