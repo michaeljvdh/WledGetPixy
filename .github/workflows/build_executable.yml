@@ -58,9 +58,7 @@ jobs:
           
     - name: Directory Listing
       run: |
-        tree
-        dir /s
-
+        tree /F
 
     - name: Create Release
       id: create_release
