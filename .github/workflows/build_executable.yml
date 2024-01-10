@@ -20,10 +20,12 @@ jobs:
       with:
         python-version: '3.x'  # Specify the Python version you need
 
-    - name: Set Short SHA
-      run: echo "SHORT_SHA=${{ github.sha | cut -c1-9 }}" >> $GITHUB_ENV
-      shell: bash
+    - name: Get short SHA
+      run: echo "SHORT_SHA=$("${{ github.sha }}".SubString(0, 8))" >> $env:GITHUB_ENV
       
+    - name: Print short SHA
+      run: echo "Short SHA is ${{ env.SHORT_SHA }}"
+
     - name: Build Executable
       run: |
         python -m pip install --upgrade pip
