@@ -142,7 +142,7 @@
 
   if your using docker for windows:
 
-  docker run -v "%cd%\monitor:/app/monitor" -v "%cd%\convert.cfg:/app/convert.cfg" -v "%cd%\monitor.cfg:/app/monitor.cfg" getpixy:latest
+  docker run -v "%cd%\monitor:/app/incoming" -v "%cd%\convert.cfg:/app/convert.cfg" -v "%cd%\monitor.cfg:/app/monitor.cfg" getpixy:latest
 
 
 

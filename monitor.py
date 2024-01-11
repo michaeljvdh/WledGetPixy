@@ -22,6 +22,7 @@ class Watcher:
         event_handler = Handler(self.directory_to_watch, self.config)
         self.observer.schedule(event_handler, self.directory_to_watch, recursive=False)
         self.observer.start()
+        print(f"Observer Started: {self.directory_to_watch}")
         try:
             while True:
                 time.sleep(5)
@@ -40,12 +41,12 @@ class Handler(FileSystemEventHandler):
         if event.is_directory or 'archive' in event.src_path or 'send' in event.src_path:
             return None
 
-        if event.event_type == 'created' or event.event_type == 'modified':
+        if event.event_type == 'created':
             print(f"New file detected in python: {event.src_path}")
             send_location = self.config.get('Settings', 'send_location')
 
             # Process the new file with convert.py
-            subprocess.call(["python", "./convert.py", event.src_path, send_location])
+            subprocess.call(["python", "convert.py", event.src_path, send_location])
             
             # Copy each file from folderA to folderB
             shutil.rmtree(send_data_archive_location)
@@ -68,7 +69,7 @@ class Handler(FileSystemEventHandler):
             self.delete_file(event.src_path)
 
     def send_data(self, send_folder):        
-        subprocess.call(["python", "./push.py", "-folder", send_folder])
+        subprocess.call(["python", "push.py", "-folder", send_folder])
 
     def cleanup_send_folder(self, send_location):        
         print("Cleaning up send folder...")
@@ -100,7 +101,6 @@ if __name__ == '__main__':
     send_location = config.get('Settings', 'send_location')
     send_data_archive_location = config.get('Settings', 'send_data_archive_location')
     directory_to_watch = os.path.abspath(directory_to_watch)
-    print(F"Attemping to watch folder: {directory_to_watch}")
 
     # Ensure directories exist
     ensure_directory_exists(directory_to_watch)
