@@ -46,11 +46,20 @@
 
     - If you have any questions, send them to me at wledgetpixy@outlook.com
 
-  #### Getting Started
+  #### Getting Started - For the Python folks
   1. (Optional) dump into your python virtual environment
   2. Install requirements
     `pip install -r requirements.txt`
-  3. Your setup. 
+  3. run python monitor.py
+  4. Edit the monitor.cfg and convert.cfg files
+  5. Drop your gif into the monitor folder
+
+  #### Getting Started - For the windows users - executable mode
+  1. Download the "GetPixy" artifact from github
+  2. Extract it
+  3. Run  getpixy.exe
+  4. Edit the monitor.cfg and convert.cfg files
+  5. Drop your gif into the monitor folder
 
   #### Running `monitor.py`
   1. Executes required folder generation based on `monitor.cfg`.
