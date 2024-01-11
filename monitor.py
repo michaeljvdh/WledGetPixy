@@ -46,7 +46,7 @@ class Handler(FileSystemEventHandler):
             send_location = self.config.get('Settings', 'send_location')
 
             # Process the new file with convert.py
-            subprocess.call(["python", "convert.py", event.src_path, send_location])
+            subprocess.call(["python", "./convert.py", event.src_path, send_location])
             
             # Copy each file from folderA to folderB
             shutil.rmtree(send_data_archive_location)
@@ -69,7 +69,7 @@ class Handler(FileSystemEventHandler):
             self.delete_file(event.src_path)
 
     def send_data(self, send_folder):        
-        subprocess.call(["python", "push.py", "-folder", send_folder])
+        subprocess.call(["python", "./push.py", "-folder", send_folder])
 
     def cleanup_send_folder(self, send_location):        
         print("Cleaning up send folder...")

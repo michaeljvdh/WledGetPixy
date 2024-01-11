@@ -32,6 +32,7 @@
   https://www.paypal.com/donate/?business=LWK64EZBGDCRS&no_recurring=0&item_name=Greetings%2C+your+patronage+keeps+me+building+more+for+you.&currency_code=CAD
 
   
+![getpixy](getpixy.jpg)
 
   ### GetPixy Configuration and Usage Guide
 
