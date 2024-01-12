@@ -75,7 +75,7 @@ You can use this one one of two to use GetPixy.
 
       
 
-If you have any questions, send them to me at wledgetpixy@outlook.com - but please, do your homework :)
+If you have any questions, https://www.reddit.com/r/GetPixy/ apply, we will accept you and address your concerns there for others to learn.
 
 ## Advanced Guide & Details
 
