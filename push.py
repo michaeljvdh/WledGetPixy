@@ -62,7 +62,8 @@ def main():
     # Rest of the code for iterating through the .send files
     for _ in range(args.loop):
         if args.file:
-            process_file(os.path.join(args.folder, args.file), args.time)
+            file_path = args.file if args.folder is None else os.path.join(args.folder, args.file)
+            process_file(file_path, args.time)
         elif args.folder and os.path.isdir(args.folder):
             for file_name in sorted(os.listdir(args.folder)):
                 if file_name.endswith('.send'):

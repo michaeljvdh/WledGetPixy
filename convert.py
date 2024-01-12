@@ -34,7 +34,7 @@ def write_command_to_file(segment, file_count, ip_address, brightness, output_fo
 
 
 def image_to_wled_commands(image_path, ip_address, resolution, output_folder, brightness):
-    MAX_PIXELS_PER_FILE = 400  # Maximum pixels or objects per file
+    MAX_PIXELS_PER_FILE = 500  # Maximum pixels or objects per file
     width, height = map(int, resolution.split('x'))
     total_pixels = width * height
 
