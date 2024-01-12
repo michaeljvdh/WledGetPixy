@@ -44,6 +44,8 @@ Please go through this entire document before requesting support via email.
 
 ## Extremely Simple Overview
 
+In action: https://www.youtube.com/watch?v=_8Y0_RWQHCM
+
 You can use this one one of two to use GetPixy.
 
 1. **Windows .exe fashion**
