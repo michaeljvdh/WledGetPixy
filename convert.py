@@ -23,8 +23,7 @@ def read_config(config_file):
     config.read(config_file)
     return (config['DEFAULT']['ipaddress'],
             config['DEFAULT'].getint('brightness'),
-            config['DEFAULT']['resolution'],
-            config['DEFAULT'].getint('colors'))
+            config['DEFAULT']['resolution'])
 
 def write_command_to_file(segment, file_count, ip_address, brightness, output_folder):
     command_data = {"on": True, "bri": brightness, "seg": {"id": 0, "i": segment}}
@@ -34,7 +33,7 @@ def write_command_to_file(segment, file_count, ip_address, brightness, output_fo
         f.write(command + "\n")
 
 
-def image_to_wled_commands(image_path, ip_address, resolution, output_folder, brightness, max_colors):
+def image_to_wled_commands(image_path, ip_address, resolution, output_folder, brightness):
     MAX_PIXELS_PER_FILE = 400  # Maximum pixels or objects per file
     width, height = map(int, resolution.split('x'))
     total_pixels = width * height
@@ -48,7 +47,8 @@ def image_to_wled_commands(image_path, ip_address, resolution, output_folder, br
                 frame = img.convert('RGB')
                 frame = frame.resize((width, height))
                 pixel_data = []
-                segment_start_index = 0
+                last_color = None
+                range_start = 0
 
                 for y in range(height):
                     for x in range(width):
@@ -56,28 +56,23 @@ def image_to_wled_commands(image_path, ip_address, resolution, output_folder, br
                         hex_color = '{:02x}{:02x}{:02x}'.format(r, g, b)
                         index = y * width + x
 
-                        # List each pixel individually
-                        pixel_data.extend([index, index, hex_color])
+                        if hex_color != last_color:
+                            if last_color is not None:
+                                pixel_data.extend([range_start, index, last_color])
+
+                            range_start = index
+                            last_color = hex_color
 
                         # Check if the pixel_data length exceeds the maximum limit
                         if len(pixel_data) >= MAX_PIXELS_PER_FILE * 3:
-                            command_data = {"on": True, "bri": brightness, "seg": {"id": 0, "i": pixel_data}}
-                            output_path = os.path.join(output_folder, f'{frame_count}_{file_index}.send')
-                            with open(output_path, 'w') as f:
-                                command = f'curl -X POST "http://{ip_address}/json/state" -d \'{json.dumps(command_data, separators=(",", ":"))}\' -H "Content-Type: application/json"'
-                                f.write(command + "\n")
-
+                            write_segment_to_file(pixel_data, file_index, ip_address, brightness, output_folder, frame_count)
                             file_index += 1
                             pixel_data = []
-                            segment_start_index = index + 1
 
                 # Write remaining data if any
-                if pixel_data:
-                    command_data = {"on": True, "bri": brightness, "seg": {"id": 0, "i": pixel_data}}
-                    output_path = os.path.join(output_folder, f'{frame_count}_{file_index}.send')
-                    with open(output_path, 'w') as f:
-                        command = f'curl -X POST "http://{ip_address}/json/state" -d \'{json.dumps(command_data, separators=(",", ":"))}\' -H "Content-Type: application/json"'
-                        f.write(command + "\n")
+                if last_color is not None:
+                    pixel_data.extend([range_start, total_pixels, last_color])
+                    write_segment_to_file(pixel_data, file_index, ip_address, brightness, output_folder, frame_count)
 
                 frame_count += 1
 
@@ -85,10 +80,17 @@ def image_to_wled_commands(image_path, ip_address, resolution, output_folder, br
             # No more frames in the image
             pass
 
+def write_segment_to_file(pixel_data, file_index, ip_address, brightness, output_folder, frame_count):
+    command_data = {"on": True, "bri": brightness, "seg": {"id": 0, "i": pixel_data}}
+    output_path = os.path.join(output_folder, f'{frame_count}_{file_index}.send')
+    with open(output_path, 'w') as f:
+        command = f'curl -X POST "http://{ip_address}/json/state" -d \'{json.dumps(command_data, separators=(",", ":"))}\' -H "Content-Type: application/json"'
+        f.write(command + "\n")
+
 
 
 def main():
-    config_ip, config_brightness, resolution, colors = read_config('convert.cfg')
+    config_ip, config_brightness, resolution = read_config('convert.cfg')
 
     if config_ip == 'x.x.x.x':
         print("Error: IP address is not configured. Please configure the IP address in convert.cfg.")
@@ -102,7 +104,7 @@ def main():
     args = parser.parse_args()
 
     
-    image_to_wled_commands(args.image, config_ip, resolution, args.output, args.brightness, colors)
+    image_to_wled_commands(args.image, config_ip, resolution, args.output, args.brightness)
 
 if __name__ == "__main__":
     main()
