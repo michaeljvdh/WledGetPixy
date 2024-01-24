@@ -39,7 +39,7 @@ def main():
     parser.add_argument('-loop', '--loop', type=int, default=1, help='Number of times to loop through sending files.')
     args = parser.parse_args()
 
-    black_json = {"on": True, "bri": 100, "seg": {"id": 0, "i": [0, 256, "000000"]}}
+    black_json = {"on": True, "bri": 0, "seg": {"id": 0, "i": [0, 256, "000000"]}}
 
     # Function to extract URL from a .send file
     def extract_url(file_path):
