@@ -12,6 +12,13 @@ def ensure_directory_exists(directory):
     if not os.path.exists(directory):
         os.makedirs(directory)
 
+def cleanup_directory(directory):
+    for file in os.listdir(directory):
+        file_path = os.path.join(directory, file)
+        if os.path.isfile(file_path) and file != ".gitkeep":
+            os.unlink(file_path)
+            print(f"Deleted file: {file_path}")
+
 class Watcher:
     def __init__(self, directory_to_watch, config):
         self.observer = Observer()
@@ -92,6 +99,7 @@ class Handler(FileSystemEventHandler):
         except Exception as e:
             print(f"Failed to delete {file_path}. Reason: {e}")
 
+
 if __name__ == '__main__':
     config = configparser.ConfigParser()
     config.read('monitor.cfg')
@@ -107,6 +115,9 @@ if __name__ == '__main__':
     ensure_directory_exists(archive_location)
     ensure_directory_exists(send_location)
     ensure_directory_exists(send_data_archive_location)
+
+    # Clean up the 'directory_to_watch' folder
+    cleanup_directory(directory_to_watch)
 
     w = Watcher(directory_to_watch, config)
     w.run()
