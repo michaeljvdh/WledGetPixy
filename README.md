@@ -162,8 +162,10 @@ How Images are converted and sent to your WLED device.
 
   > ### cron.py
 
-  Once the `monitor.py` script is operational, it cooperates with `cron.py` to observe the `cronpics` folder. This setup ensures that every image file in `cronpics` is systematically transferred to the monitor's processing directory at regular intervals, as defined in seconds. To initiate the process, you just need to populate `cronpics` with a collection of images and activate the cycle. This system is designed to adapt in real time, allowing for ongoing updates during its operation.
+  *Important, monitor.py or cron.py must have been run once for it's pic folder to be created, I suggest running monitor.py once, this will allow you to test, and it will ensure that all the folders are created.*
 
+  Once the `monitor.py` script is operational, it cooperates with `cron.py` to observe the `cronpics` folder. This setup ensures that every image file in `cronpics` is systematically transferred to the monitor's processing directory at regular intervals, as defined in seconds. To initiate the process, you just need to populate `cronpics` with a collection of images and activate the cycle. This system is designed to adapt in real time, allowing for ongoing updates during its operation.
+  
   The potential applications of this arrangement are broad and can be shaped by your imagination. It's important to note that this functionality hinges on the continuous operation of `monitor.py` or its executable form. While alternative scheduling tools could also be employed to direct images to the monitor folder, this method offers a straightforward solution for those without such preferences. The monitor script processes each image sequentially and then ceases, unlike this cycle which continually operates. You maintain control over this process; to halt the cycle, simply stop running `cron.py`.
   
   **Syntax** for cron picture cycle

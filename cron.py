@@ -13,8 +13,8 @@ def copy_files(source_folder, target_folder, time_interval):
     try:
         files = os.listdir(source_folder)
         if not files:
-            print(f"No files found in {source_folder}")
-            return
+            print(f"No files found in {source_folder} check for the folder based on monitor.cfg, and add picture files first.  If this is the first time you have run the program, this error is correct, check for the new folder.")
+            exit()
 
         for filename in files:
             source_file = os.path.join(source_folder, filename)
