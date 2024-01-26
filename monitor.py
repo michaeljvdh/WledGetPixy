@@ -106,6 +106,7 @@ if __name__ == '__main__':
 
     directory_to_watch = config.get('Settings', 'monitor_location')
     archive_location = config.get('Settings', 'archive_location')
+    cronpics_location = config.get('Settings', 'cronpics_location')
     send_location = config.get('Settings', 'send_location')
     send_data_archive_location = config.get('Settings', 'send_data_archive_location')
     directory_to_watch = os.path.abspath(directory_to_watch)
@@ -113,6 +114,7 @@ if __name__ == '__main__':
     # Ensure directories exist
     ensure_directory_exists(directory_to_watch)
     ensure_directory_exists(archive_location)
+    ensure_directory_exists(cronpics_location)
     ensure_directory_exists(send_location)
     ensure_directory_exists(send_data_archive_location)
 

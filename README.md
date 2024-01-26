@@ -89,10 +89,11 @@ If you have any questions, https://www.reddit.com/r/GetPixy/ apply, we will acce
               2. In windows ...  `archive_location = c:\pixy\archive`
               3. In Linux ... `archive_location = /home/user/pixy/archive`	
 2. Default folders are created when you run monitor.py or GetPixy.exe for the first time: (these will change if you modify the config file - be warned!)
- - **`send_data_archive`** (this folder keeps a copy of frames that were just converted when you dropped an image.) 
- - **`send `** This folder is used to send the frame files.
- - **`archive`** Keeps a copy of every picture you dump in monitor (gets moved automatically)
- - **`monitor`** Where you drop an image file, main processing folder.
+ - **`send_data_archive_location`** (this folder keeps a copy of frames that were just converted when you dropped an image.) 
+ - **`send_location`** This folder is used to send the frame files.
+ - **`send_data_archive_location`** Keeps a copy of every picture you dump in monitor (gets moved automatically)
+ - **`monitor_location`** Where you drop an image file, main processing folder.
+ - **`cronpics_location`** Where you drop images in preparation for use with `cron.py`
 
 ## Process Flow
 
@@ -159,10 +160,24 @@ How Images are converted and sent to your WLED device.
 
   
 
+  > ### cron.py
+
+  Once the `monitor.py` script is operational, it cooperates with `cron.py` to observe the `cronpics` folder. This setup ensures that every image file in `cronpics` is systematically transferred to the monitor's processing directory at regular intervals, as defined in seconds. To initiate the process, you just need to populate `cronpics` with a collection of images and activate the cycle. This system is designed to adapt in real time, allowing for ongoing updates during its operation.
+
+  The potential applications of this arrangement are broad and can be shaped by your imagination. It's important to note that this functionality hinges on the continuous operation of `monitor.py` or its executable form. While alternative scheduling tools could also be employed to direct images to the monitor folder, this method offers a straightforward solution for those without such preferences. The monitor script processes each image sequentially and then ceases, unlike this cycle which continually operates. You maintain control over this process; to halt the cycle, simply stop running `cron.py`.
+  
+  **Syntax** for cron picture cycle
+  
+  `python cron.py -time [seconds]`
+  
+  
+  
+  
+  
   ## Use Case Example
-
+  
   Bob wants to send a custom image based on two conditions.  One when he receives a new email, and 2nd when a certain date comes along 14 February another image is sent to his matrix.
-
+  
   1. Bob creates a folders for the frames.
   2. Folder 1 - Email, Folder 2 = Heart (Why not all in one folder, because frame files can span more than one due to color complexity especially with large matrixes like 32x32, if you use small matrixes all your converts are likely one frame file. )
   3. Bob converts his email image, Bob runs the convert in the same folder where the .cfg files are, because Bobs smart.
@@ -171,7 +186,7 @@ How Images are converted and sent to your WLED device.
   4. Bob tests the frames
      1. python push.py -folder c:\pixy\myarchive\email
      2. python push.py -folder c:\pixy\myarchive\heart
-  5. Bob creates is own scripts / trigger's that will call the push statements.
+5. Bob creates is own scripts / trigger's that will call the push statements.
   6. Bob decides to do a gif too, he wants a spinning hear to show too.
   7. Bob creates a folder c:\pixy\myarchive\spin_heart
      1. python convert.py c:\pics\spin_heart.gif c:\pixy\myarchive\spin_heart
