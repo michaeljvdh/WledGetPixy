@@ -48,15 +48,6 @@ In action: https://www.youtube.com/watch?v=_8Y0_RWQHCM
 
 You can use this one one of two to use GetPixy.
 
-1. **Windows .exe fashion**
-
-   1. Download Windows Asset (.zip File)
-   2. Extract contents into a folder
-   3. Configure convert.cfg, enter WLED ipaddress, brightness (0-100) of frames sent and resolution for example 8x8,16x16, 32x32 (There is no limit here)
-   4. Run GetPixy.exe (which will create additional default folders)
-   5. Drop a .png / .jpg or .gif in the monitor folder
-   6. For custom scripting please refer to the **Advanced Guide & Details**
-
 2. **Python fashion**
 
    1. Download GetPixy-Python Asset (.zip file)
@@ -88,7 +79,7 @@ If you have any questions, https://www.reddit.com/r/GetPixy/ apply, we will acce
               1. `archive_location = archive`  **(*Default works in any OS*)**
               2. In windows ...  `archive_location = c:\pixy\archive`
               3. In Linux ... `archive_location = /home/user/pixy/archive`	
-2. Default folders are created when you run monitor.py or GetPixy.exe for the first time: (these will change if you modify the config file - be warned!)
+2. Default folders are created when you run monitor.py for the first time: (these will change if you modify the config file - be warned!)
  - **`send_data_archive_location`** (this folder keeps a copy of frames that were just converted when you dropped an image.) 
  - **`send_location`** This folder is used to send the frame files.
  - **`send_data_archive_location`** Keeps a copy of every picture you dump in monitor (gets moved automatically)
