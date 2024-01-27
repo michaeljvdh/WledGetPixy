@@ -69,16 +69,18 @@ jobs:
         prerelease: true
         overwrite: true
 
-    - name: Upload GetPixy-Windows.zip
-      if: github.ref == 'refs/heads/main'
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./GetPixy-Windows-${{ env.SHORT_SHA }}.zip
-        asset_name: GetPixy-Windows-${{ env.SHORT_SHA }}.zip
-        asset_content_type: application/zip
+    #  Removed due to AntiVirus apps flagging this as a virus
+    #  https://medium.com/@markhank/how-to-stop-your-python-programs-being-seen-as-malware-bfd7eb407a7
+    # - name: Upload GetPixy-Windows.zip
+    #   if: github.ref == 'refs/heads/main'
+    #   uses: actions/upload-release-asset@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+    #     asset_path: ./GetPixy-Windows-${{ env.SHORT_SHA }}.zip
+    #     asset_name: GetPixy-Windows-${{ env.SHORT_SHA }}.zip
+    #     asset_content_type: application/zip
 
     - name: Upload GetPixy-Python.zip
       if: github.ref == 'refs/heads/main'
